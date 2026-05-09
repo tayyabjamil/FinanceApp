@@ -1,12 +1,25 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
-
 import { Platform } from 'react-native';
 
+/** Revolut-inspired dark palette */
+export const R = {
+  bg: '#0D0E12',
+  bgCard: '#16191F',
+  bgCardAlt: '#1E2128',
+  border: '#272B34',
+  accent: '#7B5EF8',
+  accentDim: '#3D2FA0',
+  blue: '#0075FF',
+  textPrimary: '#FFFFFF',
+  textSecondary: '#8B8B9E',
+  textMuted: '#4A4A58',
+  income: '#00C896',
+  expense: '#FF3B5C',
+  warning: '#FFB800',
+  white: '#FFFFFF',
+};
+
 const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+const tintColorDark = R.accent;
 
 export const Colors = {
   light: {
@@ -18,24 +31,20 @@ export const Colors = {
     tabIconSelected: tintColorLight,
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
+    text: R.textPrimary,
+    background: R.bg,
     tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    icon: R.textSecondary,
+    tabIconDefault: R.textSecondary,
+    tabIconSelected: R.accent,
   },
 };
 
 export const Fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
     sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
     serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
     rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
     mono: 'ui-monospace',
   },
   default: {
