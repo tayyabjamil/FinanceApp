@@ -1,10 +1,12 @@
 import { DarkTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { TamaguiProvider, Theme } from 'tamagui';
 
 import tamaguiConfig from '../tamagui.config';
+import { initSupabase } from '../lib/supabase';
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -22,6 +24,11 @@ const NavTheme = {
 };
 
 export default function RootLayout() {
+  useEffect(() => {
+    // Migrate any existing AsyncStorage session to SecureStore (runs once).
+    initSupabase();
+  }, []);
+
   return (
     <TamaguiProvider config={tamaguiConfig} defaultTheme="dark">
       <Theme name="dark">
