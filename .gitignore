@@ -1,44 +1,40 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+# ── Expo / React Native ──────────────────────────────────────────────────────
+FinanceAIApp/node_modules/
+FinanceAIApp/.expo/
+FinanceAIApp/dist/
+FinanceAIApp/web-build/
+FinanceAIApp/expo-env.d.ts
+FinanceAIApp/.metro-health-check*
+FinanceAIApp/.kotlin/
+FinanceAIApp/ios/
+FinanceAIApp/android/
+FinanceAIApp/.tamagui/
+FinanceAIApp/app-example/
 
-# dependencies
-node_modules/
+# ── Environment / Secrets ─────────────────────────────────────────────────────
+FinanceAIApp/.env
+FinanceAIApp/.env*.local
+supabase/.env.local
 
-# Expo
-.expo/
-dist/
-web-build/
-expo-env.d.ts
-
-# Native
-.kotlin/
+# ── Native build artifacts ────────────────────────────────────────────────────
 *.orig.*
 *.jks
 *.p8
 *.p12
 *.key
 *.mobileprovision
+*.pem
 
-# Metro
-.metro-health-check*
-
-# debug
+# ── Logs ─────────────────────────────────────────────────────────────────────
 npm-debug.*
 yarn-debug.*
 yarn-error.*
 
-# macOS
-.DS_Store
-*.pem
-
-# local env files
-.env
-.env*.local
-
-# typescript
+# ── TypeScript ────────────────────────────────────────────────────────────────
 *.tsbuildinfo
 
-app-example
+# ── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
 
-# generated native folders
-/ios
-/android
+# ── Obsidian vault (personal notes — not tracked) ────────────────────────────
+FinanceVault/
