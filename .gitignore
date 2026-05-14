@@ -38,3 +38,6 @@ yarn-error.*
 
 # ── Obsidian vault (personal notes — not tracked) ────────────────────────────
 FinanceVault/
+
+# ── Claude instructions (local only) ─────────────────────────────────────────
+CLAUDE.md

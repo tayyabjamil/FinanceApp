@@ -114,6 +114,7 @@ export async function connectBank(): Promise<void> {
       providers: 'uk-ob-all uk-oauth-all', // all sandbox banks
     }).toString();
 
+  console.log('TrueLayer authUrl:', authUrl);
   const result = await WebBrowser.openAuthSessionAsync(authUrl, REDIRECT_URI);
 
   if (result.type !== 'success') {

@@ -36,24 +36,10 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="transactions"
-        options={{
-          title: 'Payments',
-          tabBarIcon: ({ color }) => <IconSymbol size={24} name="list.bullet" color={color} />,
-        }}
-      />
-      <Tabs.Screen
         name="chat"
         options={{
           title: 'AI',
           tabBarIcon: ({ color }) => <IconSymbol size={24} name="bubble.left.and.bubble.right.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="insights"
-        options={{
-          title: 'Analytics',
-          tabBarIcon: ({ color }) => <IconSymbol size={24} name="chart.pie.fill" color={color} />,
         }}
       />
       <Tabs.Screen
@@ -63,6 +49,9 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={24} name="person.fill" color={color} />,
         }}
       />
+      <Tabs.Screen name="transactions" options={{ href: null }} />
+      <Tabs.Screen name="insights" options={{ href: null }} />
+      <Tabs.Screen name="explore" options={{ href: null }} />
     </Tabs>
   );
 }

@@ -4,17 +4,41 @@
 At the start of every new session, before doing anything else:
 1. Ask the user: "What are you working on today?"
 2. Wait for their response
-3. Create or update a Feature note in the Obsidian vault at `/Users/affanmahboob/Desktop/FinanceProject/FinanceVault/Features/` using the format below
+3. Determine which project the work belongs to:
+   - **App** (React Native / Expo code) → save note in `FinanceVault/App/Features/`
+   - **Supabase** (migrations, schema, edge functions) → save note in `FinanceVault/Supabase/Features/`
+   - **Both** → create one note in each
 4. Tell the user the note was saved and which file it's in
+
+## Vault Structure
+```
+FinanceVault/
+  App/
+    Features/     ← React Native / Expo features
+    Dev Notes/    ← App-side dev notes
+    Bugs/         ← App bugs
+  Supabase/
+    Features/     ← Supabase features (schema changes, edge functions)
+    Schema/       ← Table/extension docs
+    Edge Functions/ ← Edge function docs
+    Dev Notes/    ← Supabase-side dev notes
+    Bugs/         ← Supabase bugs
+  Branches/       ← Git branches (shared)
+  Project/        ← Overview, tech stack
+  Research/
+  Templates/
+```
 
 ## Feature Note Format
 When creating a new feature note, use this filename: `YYYY-MM-DD Feature Name.md`
+
+App features get `tags: [feature, app]`, Supabase features get `tags: [feature, supabase]`.
 
 ```markdown
 ---
 date: YYYY-MM-DD
 status: in-progress
-tags: [feature]
+tags: [feature, app]   # or [feature, supabase]
 ---
 
 # Feature: [Name]

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
+  ActivityIndicator,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -14,6 +15,7 @@ import { getSession } from '@/lib/session';
 import { getItem } from '@/lib/storage';
 import type { Transaction } from '@/lib/transactions';
 import { R } from '@/constants/theme';
+import { connectBank, isBankConnected } from '@/lib/truelayer';
 
 const CATEGORY_ICONS: Record<string, string> = {
   food: '🍔',
@@ -29,20 +31,36 @@ export default function DashboardScreen() {
   const [name, setName] = useState('');
   const [income, setIncome] = useState(0);
   const [txns, setTxns] = useState<Transaction[]>([]);
+  const [bankConnected, setBankConnected] = useState(false);
+  const [connecting, setConnecting] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
     async function load() {
       const session = await getSession();
       const list = (await getItem<Transaction[]>('financeai.transactions')) ?? [];
+      const connected = await isBankConnected();
       if (cancelled) return;
       setName(session.profile?.name ?? '');
       setIncome(session.profile?.monthlyIncome ?? 0);
       setTxns(list);
+      setBankConnected(connected);
     }
     load();
     return () => { cancelled = true; };
   }, []);
+
+  async function handleConnectBank() {
+    setConnecting(true);
+    try {
+      await connectBank();
+      setBankConnected(true);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setConnecting(false);
+    }
+  }
 
   const totals = useMemo(() => {
     const expenses = txns.filter((t) => t.type === 'expense').reduce((s, t) => s + t.amount, 0);
@@ -86,6 +104,31 @@ export default function DashboardScreen() {
             </View>
           </View>
         </View>
+
+        {/* Connect Bank */}
+        {!bankConnected && (
+          <TouchableOpacity
+            style={styles.connectBtn}
+            onPress={handleConnectBank}
+            activeOpacity={0.85}
+            disabled={connecting}
+          >
+            {connecting ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <>
+                <Text style={styles.connectBtnIcon}>🏦</Text>
+                <Text style={styles.connectBtnText}>Connect Bank</Text>
+              </>
+            )}
+          </TouchableOpacity>
+        )}
+
+        {bankConnected && (
+          <View style={styles.connectedBadge}>
+            <Text style={styles.connectedText}>✓ Bank connected</Text>
+          </View>
+        )}
 
         {/* Stats row */}
         <View style={styles.statsRow}>
@@ -329,4 +372,27 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   fabText: { color: '#fff', fontSize: 15, fontWeight: '700' },
+
+  connectBtn: {
+    backgroundColor: R.accent,
+    borderRadius: 14,
+    paddingVertical: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    marginBottom: 12,
+  },
+  connectBtnIcon: { fontSize: 18 },
+  connectBtnText: { color: '#fff', fontSize: 15, fontWeight: '700' },
+
+  connectedBadge: {
+    backgroundColor: R.income + '22',
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    alignSelf: 'flex-start',
+    marginBottom: 12,
+  },
+  connectedText: { color: R.income, fontSize: 13, fontWeight: '600' },
 });
